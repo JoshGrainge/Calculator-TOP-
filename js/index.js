@@ -1,3 +1,34 @@
+let equation = "";
+// Only lets one operation to be applied at a time
+let symbolActive = false;
+
+const outputText = document.querySelector('#screen-text');
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', e =>{
+    if(button.textContent === '='){
+        console.log('equals');
+        evaluate();
+    }
+    else if(button.textContent === 'AC'){
+        console.log('cleared');
+        equation = "";
+    }
+    else if(isNaN(parseInt(button.textContent))){
+        if(!symbolActive){
+            symbolActive = true;
+            console.log('symbol adds');
+            equation += ` ${button.textContent} `;
+        }
+    }
+    else{
+        console.log('number adds');
+        equation += button.textContent;
+    }
+
+    outputText.textContent = equation;
+}));
+
 function add(a, b){
     return a + b;
 }
@@ -27,11 +58,11 @@ function operator(operator, a, b){
             operation = subtract;
             break;
     
-        case '*':
+        case '×':
             operation = multiply;
             break;
     
-        case '/':
+        case '÷':
             operation = divide;
             break;
     
@@ -41,4 +72,8 @@ function operator(operator, a, b){
     }
 
     return operation(a, b);
+}
+
+function evaluate(){
+
 }
